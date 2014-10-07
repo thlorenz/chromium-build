@@ -376,7 +376,7 @@
       # Run tools/clang/scripts/update.sh to make sure they are compiled.
       # This causes 'clang_chrome_plugins_flags' to be set.
       # Has no effect if 'clang' is not set as well.
-      'clang_use_chrome_plugins%': 1,
+      'clang_use_chrome_plugins%': 0,
 
       # Enable building with ASAN (Clang's -fsanitize=address option).
       # -fsanitize=address only works with clang, but asan=1 implies clang=1
@@ -796,7 +796,6 @@
           'enable_managed_users%': 0,
           'enable_task_manager%': 0,
           'use_system_libcxx%': 1,
-          'support_pre_M6_history_database%': 0,
         }],
 
         # Use GPU accelerated cross process image transport by default
@@ -1038,9 +1037,6 @@
       'google_default_client_secret%': '',
       # Native Client is enabled by default.
       'disable_nacl%': '0',
-
-      # Set to 1 to support old history files
-      'support_pre_M6_history_database%': '1',
     },
 
     # Copy conditionally-set variables out one scope.
@@ -1181,7 +1177,6 @@
     'gomadir%': '<(gomadir)',
     'video_hole%': '<(video_hole)',
     'enable_load_completion_hacks%': '<(enable_load_completion_hacks)',
-    'support_pre_M6_history_database%': '<(support_pre_M6_history_database)',
 
     # Whether or not we are building the Athena shell.
     'use_athena%': '0',
@@ -1469,6 +1464,11 @@
     'ozone_platform_gbm%': 0,
     'ozone_platform_ozonex%': 0,
     'ozone_platform_test%': 0,
+
+    # Chrome OS: whether to build ChromeVox from sources in the Chromium
+    # repository rather than using precompiled JavaScript in
+    # chrome/third_party/chromevox.  This is still experimental.
+    'use_migrated_chromevox%': 1,
 
     'conditions': [
       # Enable the Syzygy optimization step for the official builds.
@@ -2099,7 +2099,7 @@
       }],
       ['clang_use_chrome_plugins==1 and OS!="win"', {
         'clang_chrome_plugins_flags': [
-          '<!@(<(DEPTH)/tools/clang/scripts/plugin_flags.sh)'
+#          '<!@(<(DEPTH)/tools/clang/scripts/plugin_flags.sh)'
         ],
       }],
       ['asan==1 or msan==1 or lsan==1 or tsan==1', {
@@ -2305,11 +2305,14 @@
       }],
     ],
 
-    # older history files use fts2 instead of fts3
-    'sqlite_enable_fts2%': '<(support_pre_M6_history_database)',
-
     # The path to the ANGLE library.
     'angle_path': '<(DEPTH)/third_party/angle',
+
+    # TODO(jmadill): remove angle_gyp. http://crbug.com/415983
+    # This temporary variable lets us change the name of the gyp file
+    # in blink and in chromium simultaneously. It should go away after
+    # we're done changing the path.
+    'angle_gyp': 'angle.gyp',
 
     # List of default apps to install in new profiles.  The first list contains
     # the source files as found in svn.  The second list, used only for linux,
@@ -2440,7 +2443,7 @@
         }],
       ],
       'clang_warning_flags': [
-        '-Wheader-hygiene',
+#       '-Wheader-hygiene',
 
         # Don't die on dtoa code that uses a char as an array index.
         # This is required solely for base/third_party/dmg_fp/dtoa.cc.
@@ -2472,13 +2475,33 @@
         '-Wno-deprecated-register',
 
         # TODO(hans): Clean this up. Or disable with finer granularity.
-        '-Wno-unused-local-typedef',
+#       '-Wno-unused-local-typedef',
+
+        # suppress deps/cares/src/ares_process.c:472:63 caused warning
+        '-Wno-pointer-sign',
+
+#       # suppress chomium/third_party/icu/source/common/propsvec.c:480:42: error: missing field 'initialValue' initializer
+#       # also inside deps/openssl/openssl/ssl/d1_srtp.c:147:7
+        '-Wno-missing-field-initializers',
+
+#       # suppress deps/openssl/openssl/crypto/bn/bn_div.c:368:6: error: use of undeclared identifier 'asm'
+        '-Wno-implicit-function-declaration',
+
+#       # supress deps/zlib/contrib/minizip/unzip.c:1250:46: error: equality comparison with extraneous parentheses
+        '-Wno-parentheses-equality',
+
+#       # suppress chromium/third_party/icu/source/common/ucnv.c:303:43: error: comparison of integers of different signs
+        '-Wno-sign-compare',
+
+#       # suppress numerous node.h warnings 
+        '-Wno-deprecated-declarations',
       ],
     },
     'includes': [ 'set_clang_warning_flags.gypi', ],
     'defines': [
       # Don't use deprecated V8 APIs anywhere.
-      'V8_DEPRECATION_WARNINGS',
+#     Disabled since it breaks node build
+#     'V8_DEPRECATION_WARNINGS',
     ],
     'include_dirs': [
       '<(SHARED_INTERMEDIATE_DIR)',
@@ -2522,14 +2545,14 @@
           ],
         },
       }],
-      ['clang==1 and OS!="win"', {
-        # This is here so that all files get recompiled after a clang roll and
-        # when turning clang on or off.
-        # (defines are passed via the command line, and build systems rebuild
-        # things when their commandline changes). Nothing should ever read this
-        # define.
-        'defines': ['CR_CLANG_REVISION=<!(<(DEPTH)/tools/clang/scripts/update.sh --print-revision)'],
-      }],
+#     ['clang==1 and OS!="win"', {
+#       # This is here so that all files get recompiled after a clang roll and
+#       # when turning clang on or off.
+#       # (defines are passed via the command line, and build systems rebuild
+#       # things when their commandline changes). Nothing should ever read this
+#       # define.
+#       'defines': ['CR_CLANG_REVISION=<!(<(DEPTH)/tools/clang/scripts/update.sh --print-revision)'],
+#     }],
       ['enable_rlz==1', {
         'defines': ['ENABLE_RLZ'],
       }],
@@ -3226,20 +3249,20 @@
               # in debug builds. Technically, these can never be null in
               # well-defined C/C++ and Clang can optimize such checks away in
               # release builds, but they may be used in asserts in debug builds.
-              '-Wno-undefined-bool-conversion',
-              '-Wno-tautological-undefined-compare',
+              '-Wno-bool-conversion',
+              '-Wno-tautological-compare',
             ],
             'xcode_settings': {
               'OTHER_CFLAGS': [
-                '-Wno-undefined-bool-conversion',
-                '-Wno-tautological-undefined-compare',
+                '-Wno-bool-conversion',
+                '-Wno-tautological-compare',
               ],
             },
             'msvs_settings': {
               'VCCLCompilerTool': {
                 'AdditionalOptions': [
-                  '-Wno-undefined-bool-conversion',
-                  '-Wno-tautological-undefined-compare',
+                  '-Wno-bool-conversion',
+                  '-Wno-tautological-compare',
                 ],
               },
             },
@@ -4679,7 +4702,7 @@
           # Don't link in libarclite_macosx.a, see http://crbug.com/156530.
           'CLANG_LINK_OBJC_RUNTIME': 'NO',          # -fno-objc-link-runtime
           'COPY_PHASE_STRIP': 'NO',
-          'GCC_C_LANGUAGE_STANDARD': 'c99',         # -std=c99
+          'GCC_C_LANGUAGE_STANDARD': 'gnu99',       # -std=gnu99 (c99 breaks building node dependency openssl)
           'GCC_CW_ASM_SYNTAX': 'NO',                # No -fasm-blocks
           'GCC_ENABLE_CPP_EXCEPTIONS': 'NO',        # -fno-exceptions
           'GCC_ENABLE_CPP_RTTI': 'NO',              # -fno-rtti
