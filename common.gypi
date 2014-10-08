@@ -4755,8 +4755,8 @@
               ],
               'conditions': [
                 ['clang_xcode==0', {
-                  'CC': '$(SOURCE_ROOT)/<(clang_dir)/clang',
-                  'LDPLUSPLUS': '$(SOURCE_ROOT)/<(clang_dir)/clang++',
+                  'CC': '<!(which clang)',
+                  'LDPLUSPLUS': '<!(which clang++)',
                 }],
               ],
             }],
