@@ -15,7 +15,7 @@
       'link_settings': {
         'libraries': [
           # Check for presence of webpdemux library, use it if present.
-          '<!(python <(DEPTH)/tools/compile_test/compile_test.py '
+          '<!(python <(DEPTH)/chromium/tools/compile_test/compile_test.py '
           '--code "int main() { return 0; }" '
           '--run-linker '
           '--on-success "-lwebp -lwebpdemux" '

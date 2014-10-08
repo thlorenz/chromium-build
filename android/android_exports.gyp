@@ -8,7 +8,7 @@
       'target_name': 'android_exports',
       'type': 'none',
       'inputs': [
-        '<(DEPTH)/build/android/android_exports.lst',
+        '<(DEPTH)/chromium/build/android/android_exports.lst',
       ],
       'outputs': [
         '<(android_linker_script)',

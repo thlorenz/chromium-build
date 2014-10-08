@@ -37,7 +37,7 @@
 
 {
   'dependencies': [
-    '<(DEPTH)/build/android/setup.gyp:build_output_dirs',
+    '<(DEPTH)/chromium/build/android/setup.gyp:build_output_dirs',
   ],
   'variables': {
     'classes_dir': '<(intermediate_dir)/classes',
@@ -77,8 +77,8 @@
         ],
       },
       'inputs': [
-        '<(DEPTH)/build/android/gyp/util/build_utils.py',
-        '<(DEPTH)/build/android/gyp/javac.py',
+        '<(DEPTH)/chromium/build/android/gyp/util/build_utils.py',
+        '<(DEPTH)/chromium/build/android/gyp/javac.py',
         '^@(java_sources)',
         '>@(input_jars_paths)',
       ],
@@ -87,7 +87,7 @@
         '<(stamp)',
       ],
       'action': [
-        'python', '<(DEPTH)/build/android/gyp/javac.py',
+        'python', '<(DEPTH)/chromium/build/android/gyp/javac.py',
         '--classpath=>(input_jars_paths)',
         '--src-gendirs=>(generated_src_dirs)',
         '--chromium-code=<(chromium_code)',

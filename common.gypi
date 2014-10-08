@@ -593,7 +593,7 @@
       # that are missing.
       'test_isolation_fail_on_missing': 1,
 
-      'wix_path%': '<(DEPTH)/third_party/wix',
+      'wix_path%': '<(DEPTH)/chromium/third_party/wix',
 
       # Managed users are enabled by default.
       'enable_managed_users%': 1,
@@ -897,23 +897,23 @@
           'use_allocator%': 'none',
           # sysroot needs to be an absolute path otherwise it generates
           # incorrect results when passed to pkg-config
-          'sysroot%': '<!(cd <(DEPTH) && pwd -P)/arm-sysroot',
+          'sysroot%': '<!(cd <(DEPTH)/chromium && pwd -P)/arm-sysroot',
         }], # OS=="linux" and target_arch=="arm" and chromeos==0
 
         ['OS=="linux" and branding=="Chrome" and buildtype=="Official" and chromeos==0', {
           'conditions': [
             ['target_arch=="x64"', {
-              'sysroot%': '<!(cd <(DEPTH) && pwd -P)/chrome/installer/linux/debian_wheezy_amd64-sysroot',
+              'sysroot%': '<!(cd <(DEPTH)/chromium && pwd -P)/chrome/installer/linux/debian_wheezy_amd64-sysroot',
             }],
             ['target_arch=="ia32"', {
-              'sysroot%': '<!(cd <(DEPTH) && pwd -P)/chrome/installer/linux/debian_wheezy_i386-sysroot',
+              'sysroot%': '<!(cd <(DEPTH)/chromium && pwd -P)/chrome/installer/linux/debian_wheezy_i386-sysroot',
             }],
         ],
         }], # OS=="linux" and branding=="Chrome" and buildtype=="Official" and chromeos==0
 
         ['OS=="linux" and target_arch=="mipsel"', {
-          'sysroot%': '<!(cd <(DEPTH) && pwd -P)/mipsel-sysroot/sysroot',
-          'CXX%': '<!(cd <(DEPTH) && pwd -P)/mipsel-sysroot/bin/mipsel-linux-gnu-gcc',
+          'sysroot%': '<!(cd <(DEPTH)/chromium && pwd -P)/mipsel-sysroot/sysroot',
+          'CXX%': '<!(cd <(DEPTH)/chromium && pwd -P)/mipsel-sysroot/bin/mipsel-linux-gnu-gcc',
         }],
 
         # Whether tests targets should be run, archived or just have the
@@ -974,9 +974,9 @@
         # Path to sas.dll, which provides the SendSAS function.
         # http://msdn.microsoft.com/en-us/library/windows/desktop/dd979761(v=vs.85).aspx
         ['target_arch=="x64"', {
-          'sas_dll_path%': '<(DEPTH)/third_party/platformsdk_win7/files/redist/amd64',
+          'sas_dll_path%': '<(DEPTH)/chromium/third_party/platformsdk_win7/files/redist/amd64',
         }, {
-          'sas_dll_path%': '<(DEPTH)/third_party/platformsdk_win7/files/redist/x86',
+          'sas_dll_path%': '<(DEPTH)/chromium/third_party/platformsdk_win7/files/redist/x86',
         }],
 
         # Turn on JNI generation optimizations on non-WebView builds.
@@ -1419,8 +1419,8 @@
     'sas_dll_exists': '<!pymod_do_main(dir_exists "<(sas_dll_path)")',
     'wix_exists': '<!pymod_do_main(dir_exists "<(wix_path)")',
 
-    'windows_sdk_default_path': '<(DEPTH)/third_party/platformsdk_win8/files',
-    'directx_sdk_default_path': '<(DEPTH)/third_party/directxsdk/files',
+    'windows_sdk_default_path': '<(DEPTH)/chromium/third_party/platformsdk_win8/files',
+    'directx_sdk_default_path': '<(DEPTH)/chromium/third_party/directxsdk/files',
 
     # Whether we are using the rlz library or not.  Platforms like Android send
     # rlz codes for searches but do not use the library.
@@ -1596,7 +1596,7 @@
         # The Mac SDK is set for iOS builds and passed through to Mac
         # sub-builds. This allows the Mac sub-build SDK in an iOS build to be
         # overridden from the command line the same way it is for a Mac build.
-        'mac_sdk%': '<!(python <(DEPTH)/build/mac/find_sdk.py 10.6)',
+        'mac_sdk%': '<!(python <(DEPTH)/chromium/build/mac/find_sdk.py 10.6)',
 
         # iOS SDK and deployment target support.  The |ios_sdk| value is left
         # blank so that when it is set in the project files it will be the
@@ -1629,8 +1629,8 @@
             # Unfortunately we have to use absolute paths to the SDK/NDK because
             # they're passed to ant which uses a different relative path from
             # gyp.
-            'android_ndk_root%': '<!(cd <(DEPTH) && pwd -P)/third_party/android_tools/ndk/',
-            'android_sdk_root%': '<!(cd <(DEPTH) && pwd -P)/third_party/android_tools/sdk/',
+            'android_ndk_root%': '<!(cd <(DEPTH)/chromium && pwd -P)/third_party/android_tools/ndk/',
+            'android_sdk_root%': '<!(cd <(DEPTH)/chromium && pwd -P)/third_party/android_tools/sdk/',
             'android_host_arch%': '<!(uname -m)',
             # Android API-level of the SDK used for compilation.
             'android_sdk_version%': '20',
@@ -1864,7 +1864,7 @@
           }],
 
           ['branding=="Chrome" and buildtype=="Official"', {
-            'mac_sdk%': '<!(python <(DEPTH)/build/mac/find_sdk.py --verify <(mac_sdk_min) --sdk_path=<(mac_sdk_path))',
+            'mac_sdk%': '<!(python <(DEPTH)/chromium/build/mac/find_sdk.py --verify <(mac_sdk_min) --sdk_path=<(mac_sdk_path))',
             # Enable uploading crash dumps.
             'mac_breakpad_uploads%': 1,
             # Enable dumping symbols at build time for use by Mac Breakpad.
@@ -1872,7 +1872,7 @@
             # Enable Keystone auto-update support.
             'mac_keystone%': 1,
           }, { # else: branding!="Chrome" or buildtype!="Official"
-            'mac_sdk%': '<!(python <(DEPTH)/build/mac/find_sdk.py <(mac_sdk_min))',
+            'mac_sdk%': '<!(python <(DEPTH)/chromium/build/mac/find_sdk.py <(mac_sdk_min))',
             'mac_breakpad_uploads%': 0,
             'mac_breakpad%': 0,
             'mac_keystone%': 0,
@@ -2029,7 +2029,7 @@
         'grit_defines': [
           '-t', 'ios',
           # iOS uses a whitelist to filter resources.
-          '-w', '<(DEPTH)/build/ios/grit_whitelist.txt'
+          '-w', '<(DEPTH)/chromium/build/ios/grit_whitelist.txt'
         ],
 
         # Enable host builds when generating with ninja-ios.
@@ -2099,7 +2099,7 @@
       }],
       ['clang_use_chrome_plugins==1 and OS!="win"', {
         'clang_chrome_plugins_flags': [
-#          '<!@(<(DEPTH)/tools/clang/scripts/plugin_flags.sh)'
+#          '<!@(<(DEPTH)/chromium/tools/clang/scripts/plugin_flags.sh)'
         ],
       }],
       ['asan==1 or msan==1 or lsan==1 or tsan==1', {
@@ -2306,7 +2306,7 @@
     ],
 
     # The path to the ANGLE library.
-    'angle_path': '<(DEPTH)/third_party/angle',
+    'angle_path': '<(DEPTH)/chromium/third_party/angle',
 
     # TODO(jmadill): remove angle_gyp. http://crbug.com/415983
     # This temporary variable lets us change the name of the gyp file
@@ -2386,7 +2386,7 @@
       # An application manifest fragment to declare compatibility settings for
       # 'executable' targets. Ignored in other target type.
       'win_exe_compatibility_manifest%':
-          '<(DEPTH)\\build\\win\\compatibility.manifest',
+          '<(DEPTH)/chromium\\build\\win\\compatibility.manifest',
 
       'release_extra_cflags%': '',
       'debug_extra_cflags%': '',
@@ -2493,8 +2493,11 @@
 #       # suppress chromium/third_party/icu/source/common/ucnv.c:303:43: error: comparison of integers of different signs
         '-Wno-sign-compare',
 
-#       # suppress numerous node.h warnings 
+#       # suppress numerous node.h warnings
         '-Wno-deprecated-declarations',
+
+#       # suppress src/stream_wrap.h:60:48: error: control reaches end of non-void function
+        '-Wno-return-type',
       ],
     },
     'includes': [ 'set_clang_warning_flags.gypi', ],
@@ -2509,12 +2512,12 @@
     'conditions': [
       ['(OS=="mac" or OS=="ios") and asan==1', {
         'dependencies': [
-          '<(DEPTH)/build/mac/asan.gyp:asan_dynamic_runtime',
+          '<(DEPTH)/chromium/build/mac/asan.gyp:asan_dynamic_runtime',
         ],
       }],
       ['OS=="win" and asan==1 and component=="shared_library"', {
         'dependencies': [
-          '<(DEPTH)/build/win/asan.gyp:asan_dynamic_runtime',
+          '<(DEPTH)/chromium/build/win/asan.gyp:asan_dynamic_runtime',
         ],
       }],
       ['OS=="linux" and use_allocator!="none" and clang_type_profiler==1', {
@@ -2526,7 +2529,7 @@
         ],
         'defines': ['TYPE_PROFILING'],
         'dependencies': [
-          '<(DEPTH)/base/allocator/allocator.gyp:type_profiler',
+          '<(DEPTH)/chromium/base/allocator/allocator.gyp:type_profiler',
         ],
       }],
       ['branding=="Chrome"', {
@@ -2551,7 +2554,7 @@
 #       # (defines are passed via the command line, and build systems rebuild
 #       # things when their commandline changes). Nothing should ever read this
 #       # define.
-#       'defines': ['CR_CLANG_REVISION=<!(<(DEPTH)/tools/clang/scripts/update.sh --print-revision)'],
+#       'defines': ['CR_CLANG_REVISION=<!(<(DEPTH)/chromium/tools/clang/scripts/update.sh --print-revision)'],
 #     }],
       ['enable_rlz==1', {
         'defines': ['ENABLE_RLZ'],
@@ -2784,7 +2787,7 @@
           '_USING_V110_SDK71_',
         ],
         'include_dirs': [
-          '<(DEPTH)/third_party/wtl/include',
+          '<(DEPTH)/chromium/third_party/wtl/include',
         ],
         'conditions': [
           ['win_z7!=0', {
@@ -3090,7 +3093,7 @@
       'Common_Base': {
         'abstract': 1,
         'msvs_configuration_attributes': {
-          'OutputDirectory': '<(DEPTH)\\build\\<(build_dir_prefix)$(ConfigurationName)',
+          'OutputDirectory': '<(DEPTH)/chromium\\build\\<(build_dir_prefix)$(ConfigurationName)',
           'IntermediateDirectory': '$(OutDir)\\obj\\$(ProjectName)',
           'CharacterSet': '1',
         },
@@ -3444,7 +3447,7 @@
         'conditions': [
           ['use_sanitizer_options==1 and ((OS=="linux" and (chromeos==0 or target_arch!="ia32")) or OS=="mac")', {
             'dependencies': [
-              '<(DEPTH)/build/sanitizers/sanitizers.gyp:sanitizer_options',
+              '<(DEPTH)/chromium/build/sanitizers/sanitizers.gyp:sanitizer_options',
             ],
           }],
         ],
@@ -3984,7 +3987,7 @@
                 ],
                 'ldflags': [
                   '--sysroot=<(sysroot)',
-                  '<!(<(DEPTH)/build/linux/sysroot_ld_path.sh <(sysroot))',
+                  '<!(<(DEPTH)/chromium/build/linux/sysroot_ld_path.sh <(sysroot))',
                 ],
               }]]
           }],
@@ -4200,12 +4203,12 @@
           }],
           ['use_instrumented_libraries==1', {
             'dependencies': [
-              '<(DEPTH)/third_party/instrumented_libraries/instrumented_libraries.gyp:instrumented_libraries',
+              '<(DEPTH)/chromium/third_party/instrumented_libraries/instrumented_libraries.gyp:instrumented_libraries',
             ],
           }],
           ['use_custom_libcxx==1', {
             'dependencies': [
-              '<(DEPTH)/third_party/libc++/libc++.gyp:libcxx_proxy',
+              '<(DEPTH)/chromium/third_party/libc++/libc++.gyp:libcxx_proxy',
             ],
           }],
           ['order_profiling!=0 and (chromeos==1 or OS=="linux" or OS=="android")', {
@@ -4284,7 +4287,7 @@
           }],
           ['linux_use_bundled_binutils==1', {
             'cflags': [
-              '-B<!(cd <(DEPTH) && pwd -P)/<(binutils_dir)',
+              '-B<!(cd <(DEPTH)/chromium && pwd -P)/<(binutils_dir)',
             ],
           }],
           ['linux_use_bundled_gold==1', {
@@ -4293,7 +4296,7 @@
             # cwd is when running the compiler, so the normal gyp path-munging
             # fails us. This hack gets the right path.
             'ldflags': [
-              '-B<!(cd <(DEPTH) && pwd -P)/<(binutils_dir)',
+              '-B<!(cd <(DEPTH)/chromium && pwd -P)/<(binutils_dir)',
             ],
           }],
           # Some binutils 2.23 releases may or may not have new dtags enabled,
@@ -4921,38 +4924,7 @@
         'target_conditions': [
           ['_type=="executable"', {
             'postbuilds': [
-              {
-                # Arranges for data (heap) pages to be protected against
-                # code execution when running on Mac OS X 10.7 ("Lion"), and
-                # ensures that the position-independent executable (PIE) bit
-                # is set for ASLR when running on Mac OS X 10.5 ("Leopard").
-                'variables': {
-                  # Define change_mach_o_flags in a variable ending in _path
-                  # so that GYP understands it's a path and performs proper
-                  # relativization during dict merging.
-                  'change_mach_o_flags_path':
-                      'mac/change_mach_o_flags_from_xcode.sh',
-                  'change_mach_o_flags_options%': [
-                  ],
-                  'target_conditions': [
-                    ['mac_pie==0 or release_valgrind_build==1', {
-                      # Don't enable PIE if it's unwanted. It's unwanted if
-                      # the target specifies mac_pie=0 or if building for
-                      # Valgrind, because Valgrind doesn't understand slide.
-                      # See the similar mac_pie/release_valgrind_build check
-                      # below.
-                      'change_mach_o_flags_options': [
-                        '--no-pie',
-                      ],
-                    }],
-                  ],
-                },
-                'postbuild_name': 'Change Mach-O Flags',
-                'action': [
-                  '<(change_mach_o_flags_path)',
-                  '>@(change_mach_o_flags_options)',
-                ],
-              },
+
             ],
             'conditions': [
               ['asan==1', {
@@ -5405,7 +5377,7 @@
           'VCResourceCompilerTool': {
             'Culture' : '1033',
             'AdditionalIncludeDirectories': [
-              '<(DEPTH)',
+              '<(DEPTH)/chromium',
               '<(SHARED_INTERMEDIATE_DIR)',
             ],
           },
@@ -5486,13 +5458,13 @@
                   # invoked via /fallback. This is critical for using macros
                   # like ASAN_UNPOISON_MEMORY_REGION in files where we fall
                   # back.
-                  '<(DEPTH)/<(make_clang_dir)/lib/clang/3.6.0/include_sanitizer',
+                  '<(DEPTH)/chromium/<(make_clang_dir)/lib/clang/3.6.0/include_sanitizer',
                 ],
               },
               'VCLinkerTool': {
                 'AdditionalLibraryDirectories': [
                   # TODO(hans): If make_clang_dir is absolute, this breaks.
-                  '<(DEPTH)/<(make_clang_dir)/lib/clang/3.6.0/lib/windows',
+                  '<(DEPTH)/chromium/<(make_clang_dir)/lib/clang/3.6.0/lib/windows',
                 ],
               },
               'target_conditions': [
@@ -5738,6 +5710,6 @@
     # files to appear (when present) in the UI as actual files and not red
     # red "missing file" proxies, the correct path to PROJECT_DERIVED_FILE_DIR,
     # and therefore SYMROOT, needs to be set at the project level.
-    'SYMROOT': '<(DEPTH)/xcodebuild',
+    'SYMROOT': '<(DEPTH)/chromium/xcodebuild',
   },
 }

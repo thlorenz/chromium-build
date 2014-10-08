@@ -26,15 +26,15 @@
     'subtarget%': '',
   },
   'inputs': [
-    '<(DEPTH)/build/android/gyp/util/build_utils.py',
-    '<(DEPTH)/build/android/gyp/write_ordered_libraries.py',
+    '<(DEPTH)/chromium/build/android/gyp/util/build_utils.py',
+    '<(DEPTH)/chromium/build/android/gyp/write_ordered_libraries.py',
     '<@(input_libraries)',
   ],
   'outputs': [
     '<(ordered_libraries_file)',
   ],
   'action': [
-    'python', '<(DEPTH)/build/android/gyp/write_ordered_libraries.py',
+    'python', '<(DEPTH)/chromium/build/android/gyp/write_ordered_libraries.py',
     '--input-libraries=<(input_libraries)',
     '--libraries-dir=<(SHARED_LIB_DIR),<(PRODUCT_DIR)',
     '--readelf=<(android_readelf)',

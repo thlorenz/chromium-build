@@ -46,7 +46,7 @@
         'chrome_with_libs_final': '<(PRODUCT_DIR)/apks/Chrome-with-libs.apk',
       },
       'dependencies': [
-        '<(DEPTH)/clank/native/framework/clank.gyp:chrome_apk'
+        '<(DEPTH)/chromium/clank/native/framework/clank.gyp:chrome_apk'
       ],
       'copies': [
         {

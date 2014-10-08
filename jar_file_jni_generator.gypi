@@ -21,7 +21,7 @@
 
 {
   'variables': {
-    'jni_generator': '<(DEPTH)/base/android/jni_generator/jni_generator.py',
+    'jni_generator': '<(DEPTH)/chromium/base/android/jni_generator/jni_generator.py',
     # A comma separated string of include files.
     'jni_generator_includes%': (
         'base/android/jni_generator/jni_generator_helper.h'
@@ -70,7 +70,7 @@
         'native_exports%': '--native_exports',
       },
       'dependencies': [
-        '<(DEPTH)/build/android/android_exports.gyp:android_exports',
+        '<(DEPTH)/chromium/build/android/android_exports.gyp:android_exports',
       ],
     }],
   ],

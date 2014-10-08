@@ -46,14 +46,14 @@
     {
       'action_name': 'create_resources_zip',
       'inputs': [
-          '<(DEPTH)/build/android/gyp/zip.py',
+          '<(DEPTH)/chromium/build/android/gyp/zip.py',
           '<@(grit_outputs)',
       ],
       'outputs': [
           '<(resource_zip_path)',
       ],
       'action': [
-          'python', '<(DEPTH)/build/android/gyp/zip.py',
+          'python', '<(DEPTH)/chromium/build/android/gyp/zip.py',
           '--input-dir', '<(res_grit_dir)',
           '--output', '<(resource_zip_path)',
       ],

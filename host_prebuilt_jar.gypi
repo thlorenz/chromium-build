@@ -43,7 +43,7 @@
         '<(dest_path)',
       ],
       'action': [
-        'python', '<(DEPTH)/build/cp.py', '<(src_path)', '<(dest_path)',
+        'python', '<(DEPTH)/chromium/build/cp.py', '<(src_path)', '<(dest_path)',
       ],
     }
   ]

@@ -46,7 +46,7 @@
 
 {
   'dependencies': [
-    '<(DEPTH)/build/android/setup.gyp:build_output_dirs'
+    '<(DEPTH)/chromium/build/android/setup.gyp:build_output_dirs'
   ],
   'variables': {
     'android_jar': '<(android_sdk)/android.jar',
@@ -144,7 +144,7 @@
           'action_name': 'process_resources',
           'message': 'processing resources for <(_target_name)',
           'variables': {
-            'android_manifest': '<(DEPTH)/build/android/AndroidManifest.xml',
+            'android_manifest': '<(DEPTH)/chromium/build/android/AndroidManifest.xml',
             # Write the inputs list to a file, so that its mtime is updated when
             # the list of inputs changes.
             'inputs_list_file': '>|(java_resources.<(_target_name).gypcmd >@(resource_input_paths))',
@@ -156,9 +156,9 @@
             ],
           },
           'inputs': [
-            '<(DEPTH)/build/android/gyp/util/build_utils.py',
-            '<(DEPTH)/build/android/gyp/process_resources.py',
-            '<(DEPTH)/build/android/gyp/generate_v14_compatible_resources.py',
+            '<(DEPTH)/chromium/build/android/gyp/util/build_utils.py',
+            '<(DEPTH)/chromium/build/android/gyp/process_resources.py',
+            '<(DEPTH)/chromium/build/android/gyp/generate_v14_compatible_resources.py',
             '>@(resource_input_paths)',
             '>@(dependencies_res_zip_paths)',
             '>(inputs_list_file)',
@@ -167,7 +167,7 @@
             '<(resource_zip_path)',
           ],
           'action': [
-            'python', '<(DEPTH)/build/android/gyp/process_resources.py',
+            'python', '<(DEPTH)/chromium/build/android/gyp/process_resources.py',
             '--android-sdk', '<(android_sdk)',
             '--android-sdk-tools', '<(android_sdk_tools)',
             '--non-constant-id',
@@ -193,8 +193,8 @@
           'message': 'Proguard preprocessing <(_target_name) jar',
           'inputs': [
             '<(android_sdk_root)/tools/proguard/lib/proguard.jar',
-            '<(DEPTH)/build/android/gyp/util/build_utils.py',
-            '<(DEPTH)/build/android/gyp/proguard.py',
+            '<(DEPTH)/chromium/build/android/gyp/util/build_utils.py',
+            '<(DEPTH)/chromium/build/android/gyp/proguard.py',
             '<(javac_jar_path)',
             '<(proguard_config)',
           ],
@@ -202,7 +202,7 @@
             '<(jar_path)',
           ],
           'action': [
-            'python', '<(DEPTH)/build/android/gyp/proguard.py',
+            'python', '<(DEPTH)/chromium/build/android/gyp/proguard.py',
             '--proguard-path=<(android_sdk_root)/tools/proguard/lib/proguard.jar',
             '--input-path=<(javac_jar_path)',
             '--output-path=<(jar_path)',
@@ -221,8 +221,8 @@
         'java_sources': ['>!@(find >(java_in_dir)/src >(additional_src_dirs) -name "*.java")'],
       },
       'inputs': [
-        '<(DEPTH)/build/android/gyp/util/build_utils.py',
-        '<(DEPTH)/build/android/gyp/javac.py',
+        '<(DEPTH)/chromium/build/android/gyp/util/build_utils.py',
+        '<(DEPTH)/chromium/build/android/gyp/javac.py',
         '>@(java_sources)',
         '>@(input_jars_paths)',
         '>@(additional_input_paths)',
@@ -232,7 +232,7 @@
         '<(javac_jar_path)',
       ],
       'action': [
-        'python', '<(DEPTH)/build/android/gyp/javac.py',
+        'python', '<(DEPTH)/chromium/build/android/gyp/javac.py',
         '--classpath=>(input_jars_paths)',
         '--src-gendirs=>(generated_src_dirs)',
         '--javac-includes=<(javac_includes)',
@@ -284,16 +284,16 @@
       'action_name': 'jar_toc_<(_target_name)',
       'message': 'Creating <(_target_name) jar.TOC',
       'inputs': [
-        '<(DEPTH)/build/android/gyp/util/build_utils.py',
-        '<(DEPTH)/build/android/gyp/util/md5_check.py',
-        '<(DEPTH)/build/android/gyp/jar_toc.py',
+        '<(DEPTH)/chromium/build/android/gyp/util/build_utils.py',
+        '<(DEPTH)/chromium/build/android/gyp/util/md5_check.py',
+        '<(DEPTH)/chromium/build/android/gyp/jar_toc.py',
         '<(jar_final_path)',
       ],
       'outputs': [
         '<(jar_final_path).TOC',
       ],
       'action': [
-        'python', '<(DEPTH)/build/android/gyp/jar_toc.py',
+        'python', '<(DEPTH)/chromium/build/android/gyp/jar_toc.py',
         '--jar-path=<(jar_final_path)',
         '--toc-path=<(jar_final_path).TOC',
       ]

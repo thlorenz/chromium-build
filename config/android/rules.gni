@@ -1051,7 +1051,7 @@ template("create_native_executable_dist") {
 
   # TODO(gyp)
   #'dependencies': [
-  #'<(DEPTH)/build/android/setup.gyp:copy_system_libraries',
+  #'<(DEPTH)/chromium/build/android/setup.gyp:copy_system_libraries',
   #],
 
   stripped_libraries_dir = "$root_build_dir/lib.stripped"

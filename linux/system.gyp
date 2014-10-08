@@ -1048,7 +1048,7 @@
                 'include_dirs+': [
                   # We need for our local copies of the libssl3 headers to come
                   # before other includes, as we are shadowing system headers.
-                  '<(DEPTH)/net/third_party/nss/ssl',
+                  '<(DEPTH)/chromium/net/third_party/nss/ssl',
                 ],
                 'cflags': [
                   '<!@(<(pkg-config) --cflags nss)',

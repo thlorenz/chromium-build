@@ -22,7 +22,7 @@
     # Functions and namespaces can be excluded by setting "nocompile" to true.
     # The default root path of API implementation sources is
     # chrome/browser/extensions/api and can be overridden by setting "impl_dir".
-    'api_gen_dir': '<(DEPTH)/tools/json_schema_compiler',
+    'api_gen_dir': '<(DEPTH)/chromium/tools/json_schema_compiler',
     'api_gen': '<(api_gen_dir)/compiler.py',
     'generator_files': [
       '<(api_gen_dir)/cc_generator.py',
@@ -54,7 +54,7 @@
       'action': [
         'python',
         '<(api_gen)',
-        '--root=<(DEPTH)',
+        '--root=<(DEPTH)/chromium',
         '--destdir=<(SHARED_INTERMEDIATE_DIR)',
         '--namespace=<(root_namespace)',
         '--generator=cpp-bundle-schema',
@@ -70,7 +70,7 @@
   ],
   'include_dirs': [
     '<(SHARED_INTERMEDIATE_DIR)',
-    '<(DEPTH)',
+    '<(DEPTH)/chromium',
   ],
   'direct_dependent_settings': {
     'include_dirs': [

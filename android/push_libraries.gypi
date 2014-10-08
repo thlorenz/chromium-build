@@ -26,9 +26,9 @@
   'action_name': 'push_libraries_<(_target_name)',
   'message': 'Pushing libraries to device for <(_target_name)',
   'inputs': [
-    '<(DEPTH)/build/android/gyp/util/build_utils.py',
-    '<(DEPTH)/build/android/gyp/util/md5_check.py',
-    '<(DEPTH)/build/android/gyp/push_libraries.py',
+    '<(DEPTH)/chromium/build/android/gyp/util/build_utils.py',
+    '<(DEPTH)/chromium/build/android/gyp/util/md5_check.py',
+    '<(DEPTH)/chromium/build/android/gyp/push_libraries.py',
     '<(strip_stamp)',
     '<(strip_additional_stamp)',
     '<(build_device_config_path)',
@@ -37,7 +37,7 @@
     '<(push_stamp)',
   ],
   'action': [
-    'python', '<(DEPTH)/build/android/gyp/push_libraries.py',
+    'python', '<(DEPTH)/chromium/build/android/gyp/push_libraries.py',
     '--build-device-configuration=<(build_device_config_path)',
     '--libraries-dir=<(libraries_source_dir)',
     '--device-dir=<(device_library_dir)',

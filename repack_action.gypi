@@ -11,7 +11,7 @@
 {
   # GYP version: //tools/grit/repack.gni
   'variables': {
-    'repack_path': '<(DEPTH)/tools/grit/grit/format/repack.py',
+    'repack_path': '<(DEPTH)/chromium/tools/grit/grit/format/repack.py',
     'repack_options%': [],
   },
   'inputs': [

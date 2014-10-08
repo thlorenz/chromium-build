@@ -75,7 +75,7 @@
     'proguard_enabled%': 'false',
     'proguard_flags_paths': ['<(generated_proguard_file)'],
     'jar_name': 'chromium_apk_<(_target_name).jar',
-    'resource_dir%':'<(DEPTH)/build/android/ant/empty/res',
+    'resource_dir%':'<(DEPTH)/chromium/build/android/ant/empty/res',
     'R_package%':'',
     'additional_R_text_files': [],
     'dependencies_res_zip_paths': [],
@@ -90,7 +90,7 @@
     'package_input_paths': [],
     'ordered_libraries_file': '<(intermediate_dir)/native_libraries.json',
     'additional_ordered_libraries_file': '<(intermediate_dir)/additional_native_libraries.json',
-    'native_libraries_template': '<(DEPTH)/base/android/java/templates/NativeLibraries.template',
+    'native_libraries_template': '<(DEPTH)/chromium/base/android/java/templates/NativeLibraries.template',
     'native_libraries_java_dir': '<(intermediate_dir)/native_libraries_java/',
     'native_libraries_java_file': '<(native_libraries_java_dir)/NativeLibraries.java',
     'native_libraries_java_stamp': '<(intermediate_dir)/native_libraries_java.stamp',
@@ -210,12 +210,12 @@
     }],
     ['native_lib_target != "" and component == "shared_library"', {
       'dependencies': [
-        '<(DEPTH)/build/android/setup.gyp:copy_system_libraries',
+        '<(DEPTH)/chromium/build/android/setup.gyp:copy_system_libraries',
       ],
     }],
     ['use_chromium_linker == 1', {
       'dependencies': [
-        '<(DEPTH)/base/base.gyp:chromium_android_linker',
+        '<(DEPTH)/chromium/base/base.gyp:chromium_android_linker',
       ],
     }],
     ['native_lib_target != ""', {
@@ -309,8 +309,8 @@
           },
           'message': 'Creating NativeLibraries.java for <(_target_name)',
           'inputs': [
-            '<(DEPTH)/build/android/gyp/util/build_utils.py',
-            '<(DEPTH)/build/android/gyp/gcc_preprocess.py',
+            '<(DEPTH)/chromium/build/android/gyp/util/build_utils.py',
+            '<(DEPTH)/chromium/build/android/gyp/gcc_preprocess.py',
             '<(ordered_libraries_file)',
             '<(native_libraries_template)',
           ],
@@ -318,7 +318,7 @@
             '<(native_libraries_java_stamp)',
           ],
           'action': [
-            'python', '<(DEPTH)/build/android/gyp/gcc_preprocess.py',
+            'python', '<(DEPTH)/chromium/build/android/gyp/gcc_preprocess.py',
             '--include-path=',
             '--output=<(native_libraries_java_file)',
             '--template=<(native_libraries_template)',
@@ -413,13 +413,13 @@
             ],
           },
           'inputs': [
-            '<(DEPTH)/build/android/gyp/create_placeholder_files.py',
+            '<(DEPTH)/chromium/build/android/gyp/create_placeholder_files.py',
           ],
           'outputs': [
             '<(native_lib_placeholder_stamp)',
           ],
           'action': [
-            'python', '<(DEPTH)/build/android/gyp/create_placeholder_files.py',
+            'python', '<(DEPTH)/chromium/build/android/gyp/create_placeholder_files.py',
             '--dest-lib-dir=<(apk_package_native_libs_dir)/<(android_app_abi)/',
             '--stamp=<(native_lib_placeholder_stamp)',
             '<@(placeholders)',
@@ -435,7 +435,7 @@
             'configuration_name': '<(CONFIGURATION_NAME)',
           },
           'dependencies': [
-            '<(DEPTH)/build/android/setup.gyp:get_build_device_configurations',
+            '<(DEPTH)/chromium/build/android/setup.gyp:get_build_device_configurations',
           ],
           'actions': [
             {
@@ -445,8 +445,8 @@
               'action_name': 'create device library symlinks',
               'message': 'Creating links on device for <(_target_name)',
               'inputs': [
-                '<(DEPTH)/build/android/gyp/util/build_utils.py',
-                '<(DEPTH)/build/android/gyp/create_device_library_links.py',
+                '<(DEPTH)/chromium/build/android/gyp/util/build_utils.py',
+                '<(DEPTH)/chromium/build/android/gyp/create_device_library_links.py',
                 '<(apk_install_record)',
                 '<(build_device_config_path)',
                 '<(ordered_libraries_file)',
@@ -455,7 +455,7 @@
                 '<(link_stamp)'
               ],
               'action': [
-                'python', '<(DEPTH)/build/android/gyp/create_device_library_links.py',
+                'python', '<(DEPTH)/chromium/build/android/gyp/create_device_library_links.py',
                 '--build-device-configuration=<(build_device_config_path)',
                 '--libraries=@FileArg(<(ordered_libraries_file):libraries)',
                 '--script-host-path=<(symlink_script_host_path)',
@@ -511,7 +511,7 @@
         },
       ],
       'dependencies': [
-        '<(DEPTH)/build/android/rezip.gyp:rezip_apk_jar',
+        '<(DEPTH)/chromium/build/android/rezip.gyp:rezip_apk_jar',
       ],
     }],
     ['gyp_managed_install == 1', {
@@ -528,8 +528,8 @@
           'action_name': 'apk_install_<(_target_name)',
           'message': 'Installing <(apk_name).apk',
           'inputs': [
-            '<(DEPTH)/build/android/gyp/util/build_utils.py',
-            '<(DEPTH)/build/android/gyp/apk_install.py',
+            '<(DEPTH)/chromium/build/android/gyp/util/build_utils.py',
+            '<(DEPTH)/chromium/build/android/gyp/apk_install.py',
             '<(build_device_config_path)',
             '<(incomplete_apk_path)',
           ],
@@ -537,7 +537,7 @@
             '<(apk_install_record)',
           ],
           'action': [
-            'python', '<(DEPTH)/build/android/gyp/apk_install.py',
+            'python', '<(DEPTH)/chromium/build/android/gyp/apk_install.py',
             '--apk-path=<(incomplete_apk_path)',
             '--build-device-configuration=<(build_device_config_path)',
             '--install-record=<(apk_install_record)',
@@ -546,17 +546,17 @@
         },
       ],
       'dependencies': [
-        '<(DEPTH)/build/android/rezip.gyp:rezip_apk_jar',
+        '<(DEPTH)/chromium/build/android/rezip.gyp:rezip_apk_jar',
       ],
     }],
     ['is_test_apk == 1', {
       'dependencies': [
-        '<(DEPTH)/tools/android/android_tools.gyp:android_tools',
+        '<(DEPTH)/chromium/tools/android/android_tools.gyp:android_tools',
       ]
     }],
   ],
   'dependencies': [
-    '<(DEPTH)/tools/android/md5sum/md5sum.gyp:md5sum',
+    '<(DEPTH)/chromium/tools/android/md5sum/md5sum.gyp:md5sum',
   ],
   'actions': [
     {
@@ -578,8 +578,8 @@
         ],
       },
       'inputs': [
-        '<(DEPTH)/build/android/gyp/util/build_utils.py',
-        '<(DEPTH)/build/android/gyp/process_resources.py',
+        '<(DEPTH)/chromium/build/android/gyp/util/build_utils.py',
+        '<(DEPTH)/chromium/build/android/gyp/process_resources.py',
         '<(android_manifest_path)',
         '>@(additional_input_paths)',
         '>@(resource_input_paths)',
@@ -592,7 +592,7 @@
         '<(codegen_stamp)',
       ],
       'action': [
-        'python', '<(DEPTH)/build/android/gyp/process_resources.py',
+        'python', '<(DEPTH)/chromium/build/android/gyp/process_resources.py',
         '--android-sdk', '<(android_sdk)',
         '--android-sdk-tools', '<(android_sdk_tools)',
 
@@ -636,8 +636,8 @@
 
       },
       'inputs': [
-        '<(DEPTH)/build/android/gyp/util/build_utils.py',
-        '<(DEPTH)/build/android/gyp/javac.py',
+        '<(DEPTH)/chromium/build/android/gyp/util/build_utils.py',
+        '<(DEPTH)/chromium/build/android/gyp/javac.py',
         '>@(java_sources)',
         '>@(input_jars_paths)',
         '<(codegen_stamp)',
@@ -652,7 +652,7 @@
         '<(javac_jar_path)',
       ],
       'action': [
-        'python', '<(DEPTH)/build/android/gyp/javac.py',
+        'python', '<(DEPTH)/chromium/build/android/gyp/javac.py',
         '--classpath=>(input_jars_paths) <(android_sdk_jar)',
         '--src-gendirs=>(gen_src_dirs)',
         '--javac-includes=<(javac_includes)',
@@ -741,8 +741,8 @@
         }],
       ],
       'inputs': [
-        '<(DEPTH)/build/android/gyp/apk_obfuscate.py',
-        '<(DEPTH)/build/android/gyp/util/build_utils.py',
+        '<(DEPTH)/chromium/build/android/gyp/apk_obfuscate.py',
+        '<(DEPTH)/chromium/build/android/gyp/util/build_utils.py',
         '>@(proguard_flags_paths)',
         '>@(obfuscate_input_jars_paths)',
         '>@(additional_obfuscate_input_paths)',
@@ -760,7 +760,7 @@
         '<(obfuscated_jar_path).usage',
       ],
       'action': [
-        'python', '<(DEPTH)/build/android/gyp/apk_obfuscate.py',
+        'python', '<(DEPTH)/chromium/build/android/gyp/apk_obfuscate.py',
 
         '--configuration-name', '<(CONFIGURATION_NAME)',
 
@@ -838,8 +838,8 @@
       ],
       'inputs': [
         # TODO: This isn't always rerun correctly, http://crbug.com/351928
-        '<(DEPTH)/build/android/gyp/util/build_utils.py',
-        '<(DEPTH)/build/android/gyp/package_resources.py',
+        '<(DEPTH)/chromium/build/android/gyp/util/build_utils.py',
+        '<(DEPTH)/chromium/build/android/gyp/package_resources.py',
         '<(android_manifest_path)',
 
         '>@(package_resource_zip_input_paths)',
@@ -850,7 +850,7 @@
         '<(resource_packaged_apk_path)',
       ],
       'action': [
-        'python', '<(DEPTH)/build/android/gyp/package_resources.py',
+        'python', '<(DEPTH)/chromium/build/android/gyp/package_resources.py',
         '--android-sdk', '<(android_sdk)',
         '--android-sdk-tools', '<(android_sdk_tools)',
 
@@ -877,9 +877,9 @@
         'inputs_list_file': '>|(apk_package.<(_target_name).gypcmd >@(package_input_paths))'
       },
       'inputs': [
-        '<(DEPTH)/build/android/ant/apk-package.xml',
-        '<(DEPTH)/build/android/gyp/util/build_utils.py',
-        '<(DEPTH)/build/android/gyp/ant.py',
+        '<(DEPTH)/chromium/build/android/ant/apk-package.xml',
+        '<(DEPTH)/chromium/build/android/gyp/util/build_utils.py',
+        '<(DEPTH)/chromium/build/android/gyp/ant.py',
         '<(dex_path)',
         '<(codegen_stamp)',
         '<(obfuscate_stamp)',
@@ -896,7 +896,7 @@
         }],
       ],
       'action': [
-        'python', '<(DEPTH)/build/android/gyp/ant.py',
+        'python', '<(DEPTH)/chromium/build/android/gyp/ant.py',
         '--',
         '-quiet',
         '-DDEX_FILE_PATH=<(intermediate_dir)/classes.dex',
@@ -913,7 +913,7 @@
 
         '-Dbasedir=.',
         '-buildfile',
-        '<(DEPTH)/build/android/ant/apk-package.xml',
+        '<(DEPTH)/chromium/build/android/ant/apk-package.xml',
       ]
     },
   ],

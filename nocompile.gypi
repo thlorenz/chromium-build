@@ -64,7 +64,7 @@
       'rules': [
         {
           'variables': {
-            'nocompile_driver': '<(DEPTH)/tools/nocompile_driver.py',
+            'nocompile_driver': '<(DEPTH)/chromium/tools/nocompile_driver.py',
             'nc_result_path': ('<(INTERMEDIATE_DIR)/<(module_dir)/'
                                '<(RULE_INPUT_ROOT)_nc.cc'),
            },
@@ -81,7 +81,7 @@
             '<(nocompile_driver)',
             '4', # number of compilers to invoke in parallel.
             '<(RULE_INPUT_PATH)',
-            '-Wall -Werror -Wfatal-errors -I<(DEPTH)',
+            '-Wall -Werror -Wfatal-errors -I<(DEPTH)/chromium',
             '<(nc_result_path)',
             ],
           'message': 'Generating no compile results for <(RULE_INPUT_PATH)',

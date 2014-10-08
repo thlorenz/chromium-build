@@ -7,7 +7,7 @@
 {
   'variables': {
     # TODO: remove this helper when we have loops in GYP
-    'apply_locales_cmd': ['python', '<(DEPTH)/build/apply_locales.py'],
+    'apply_locales_cmd': ['python', '<(DEPTH)/chromium/build/apply_locales.py'],
 
     'conditions': [
       ['OS=="mac"', {

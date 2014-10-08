@@ -46,7 +46,7 @@
   ],
   'action': [
     'python',
-    '<(DEPTH)/build/copy_test_data_ios.py',
+    '<(DEPTH)/chromium/build/copy_test_data_ios.py',
     '-o', '<(PRODUCT_DIR)/<(_target_name).app/<(test_data_prefix)',
     '<@(_inputs)',
   ],

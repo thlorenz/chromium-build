@@ -6,7 +6,7 @@
   'variables': {
     # Check for presence of harfbuzz-icu library, use it if present.
     'harfbuzz_libraries':
-        '<!(python <(DEPTH)/tools/compile_test/compile_test.py '
+        '<!(python <(DEPTH)/chromium/tools/compile_test/compile_test.py '
         '--code "int main() { return 0; }" '
         '--run-linker '
         '--on-success "harfbuzz harfbuzz-icu" '

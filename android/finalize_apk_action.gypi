@@ -19,7 +19,7 @@
 {
   'message': 'Signing/aligning <(_target_name) APK: <(input_apk_path)',
   'variables': {
-    'keystore_path%': '<(DEPTH)/build/android/ant/chromium-debug.keystore',
+    'keystore_path%': '<(DEPTH)/chromium/build/android/ant/chromium-debug.keystore',
     'keystore_name%': 'chromiumdebugkey',
     'keystore_password%': 'chromium',
     'conditions': [
@@ -34,8 +34,8 @@
     ],
   },
   'inputs': [
-    '<(DEPTH)/build/android/gyp/util/build_utils.py',
-    '<(DEPTH)/build/android/gyp/finalize_apk.py',
+    '<(DEPTH)/chromium/build/android/gyp/util/build_utils.py',
+    '<(DEPTH)/chromium/build/android/gyp/finalize_apk.py',
     '<(keystore_path)',
     '<(input_apk_path)',
   ],
@@ -43,7 +43,7 @@
     '<(output_apk_path)',
   ],
   'action': [
-    'python', '<(DEPTH)/build/android/gyp/finalize_apk.py',
+    'python', '<(DEPTH)/chromium/build/android/gyp/finalize_apk.py',
     '--zipalign-path=<(zipalign_path)',
     '--unsigned-apk-path=<(input_apk_path)',
     '--final-apk-path=<(output_apk_path)',

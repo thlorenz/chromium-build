@@ -35,9 +35,9 @@
     'dex_additional_options': [],
   },
   'inputs': [
-    '<(DEPTH)/build/android/gyp/util/build_utils.py',
-    '<(DEPTH)/build/android/gyp/util/md5_check.py',
-    '<(DEPTH)/build/android/gyp/dex.py',
+    '<(DEPTH)/chromium/build/android/gyp/util/build_utils.py',
+    '<(DEPTH)/chromium/build/android/gyp/util/md5_check.py',
+    '<(DEPTH)/chromium/build/android/gyp/dex.py',
     '>@(dex_input_paths)',
   ],
   'outputs': [
@@ -45,7 +45,7 @@
     '<(output_path).inputs',
   ],
   'action': [
-    'python', '<(DEPTH)/build/android/gyp/dex.py',
+    'python', '<(DEPTH)/chromium/build/android/gyp/dex.py',
     '--dex-path=<(output_path)',
     '--android-sdk-tools=<(android_sdk_tools)',
     '--configuration-name=<(CONFIGURATION_NAME)',

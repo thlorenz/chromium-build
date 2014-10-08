@@ -27,7 +27,7 @@
 
 {
   'variables': {
-    'create_importlib': '<(DEPTH)/build/win/importlibs/create_importlib_win.py',
+    'create_importlib': '<(DEPTH)/chromium/build/win/importlibs/create_importlib_win.py',
     'lib_dir': '<(PRODUCT_DIR)/lib',
   },
   'rules': [

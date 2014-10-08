@@ -20,7 +20,7 @@
     #     namespace, like "toplevel::%(namespace)s_api".
     #
     # Functions and namespaces can be excluded by setting "nocompile" to true.
-    'api_gen_dir': '<(DEPTH)/tools/json_schema_compiler',
+    'api_gen_dir': '<(DEPTH)/chromium/tools/json_schema_compiler',
     'api_gen': '<(api_gen_dir)/compiler.py',
     'schema_include_rules': [],
   },
@@ -56,7 +56,7 @@
         'python',
         '<(api_gen)',
         '<(RULE_INPUT_PATH)',
-        '--root=<(DEPTH)',
+        '--root=<(DEPTH)/chromium',
         '--destdir=<(SHARED_INTERMEDIATE_DIR)',
         '--namespace=<(root_namespace)',
         '--generator=cpp',
@@ -95,7 +95,7 @@
         'python',
         '<(api_gen)',
         '<(RULE_INPUT_PATH)',
-        '--root=<(DEPTH)',
+        '--root=<(DEPTH)/chromium',
         '--destdir=<(SHARED_INTERMEDIATE_DIR)',
         '--namespace=<(root_namespace)',
         '--generator=cpp',
@@ -107,10 +107,10 @@
   ],
   'include_dirs': [
     '<(SHARED_INTERMEDIATE_DIR)',
-    '<(DEPTH)',
+    '<(DEPTH)/chromium',
   ],
   'dependencies':[
-    '<(DEPTH)/tools/json_schema_compiler/api_gen_util.gyp:api_gen_util',
+    '<(DEPTH)/chromium/tools/json_schema_compiler/api_gen_util.gyp:api_gen_util',
   ],
   'direct_dependent_settings': {
     'include_dirs': [

@@ -21,8 +21,8 @@
             'java_sources': ['>!@(find >(java_in_dir) -name "*.java")'],
           },
           'inputs': [
-            '<(DEPTH)/build/android/gyp/util/build_utils.py',
-            '<(DEPTH)/build/android/gyp/javac.py',
+            '<(DEPTH)/chromium/build/android/gyp/util/build_utils.py',
+            '<(DEPTH)/chromium/build/android/gyp/javac.py',
             '>@(java_sources)',
           ],
           'outputs': [
@@ -30,7 +30,7 @@
             '<(javac_jar_path)',
           ],
           'action': [
-            'python', '<(DEPTH)/build/android/gyp/javac.py',
+            'python', '<(DEPTH)/chromium/build/android/gyp/javac.py',
             '--classpath=',
             '--classes-dir=<(SHARED_INTERMEDIATE_DIR)/<(_target_name)',
             '--jar-path=<(javac_jar_path)',

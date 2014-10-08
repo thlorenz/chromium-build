@@ -15,7 +15,7 @@
 
 {
   'dependencies': [
-    '<(DEPTH)/tools/android/android_tools.gyp:android_tools',
+    '<(DEPTH)/chromium/tools/android/android_tools.gyp:android_tools',
   ],
   'variables': {
     'output_dex_path': '<(PRODUCT_DIR)/lib.java/<(_target_name).dex.jar',

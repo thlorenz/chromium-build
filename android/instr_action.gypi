@@ -20,7 +20,7 @@
       ['emma_instrument != 0', {
         'extra_instr_args': [
           '--sources=<(java_in_dir)/src >(additional_src_dirs) >(generated_src_dirs)',
-          '--src-root=<(DEPTH)',
+          '--src-root=<(DEPTH)/chromium',
           '--emma-jar=<(emma_jar)',
           '--filter-string=<(emma_filter)',
         ],
@@ -38,12 +38,12 @@
     ]
   },
   'inputs': [
-    '<(DEPTH)/build/android/gyp/emma_instr.py',
-    '<(DEPTH)/build/android/gyp/util/build_utils.py',
-    '<(DEPTH)/build/android/pylib/utils/command_option_parser.py',
+    '<(DEPTH)/chromium/build/android/gyp/emma_instr.py',
+    '<(DEPTH)/chromium/build/android/gyp/util/build_utils.py',
+    '<(DEPTH)/chromium/build/android/pylib/utils/command_option_parser.py',
   ],
   'action': [
-    'python', '<(DEPTH)/build/android/gyp/emma_instr.py',
+    'python', '<(DEPTH)/chromium/build/android/gyp/emma_instr.py',
     '<(instr_action)',
     '--input-path=<(input_path)',
     '--output-path=<(output_path)',

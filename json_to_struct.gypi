@@ -9,7 +9,7 @@
     #   namespace: the C++ namespace that all generated files go under
     #   cc_dir: path to generated files
     # Functions and namespaces can be excluded by setting "nocompile" to true.
-    'struct_gen_dir': '<(DEPTH)/tools/json_to_struct',
+    'struct_gen_dir': '<(DEPTH)/chromium/tools/json_to_struct',
     'struct_gen': '<(struct_gen_dir)/json_to_struct.py',
   },
   'rules': [
@@ -42,7 +42,7 @@
   ],
   'include_dirs': [
     '<(SHARED_INTERMEDIATE_DIR)',
-    '<(DEPTH)',
+    '<(DEPTH)/chromium',
   ],
   # This target exports a hard dependency because it generates header
   # files.

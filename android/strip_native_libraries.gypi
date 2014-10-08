@@ -26,8 +26,8 @@
     'input_paths': [],
   },
   'inputs': [
-    '<(DEPTH)/build/android/gyp/util/build_utils.py',
-    '<(DEPTH)/build/android/gyp/strip_library_for_device.py',
+    '<(DEPTH)/chromium/build/android/gyp/util/build_utils.py',
+    '<(DEPTH)/chromium/build/android/gyp/strip_library_for_device.py',
     '<(ordered_libraries_file)',
     '>@(input_paths)',
   ],
@@ -43,7 +43,7 @@
     }],
   ],
   'action': [
-    'python', '<(DEPTH)/build/android/gyp/strip_library_for_device.py',
+    'python', '<(DEPTH)/chromium/build/android/gyp/strip_library_for_device.py',
     '--android-strip=<(android_strip)',
     '--android-strip-arg=--strip-unneeded',
     '--stripped-libraries-dir=<(stripped_libraries_dir)',

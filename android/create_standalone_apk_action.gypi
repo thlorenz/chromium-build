@@ -24,8 +24,8 @@
     'inputs': [],
   },
   'inputs': [
-    '<(DEPTH)/build/android/gyp/util/build_utils.py',
-    '<(DEPTH)/build/android/gyp/create_standalone_apk.py',
+    '<(DEPTH)/chromium/build/android/gyp/util/build_utils.py',
+    '<(DEPTH)/chromium/build/android/gyp/create_standalone_apk.py',
     '<(input_apk_path)',
     '>@(inputs)',
   ],
@@ -33,7 +33,7 @@
     '<(output_apk_path)',
   ],
   'action': [
-    'python', '<(DEPTH)/build/android/gyp/create_standalone_apk.py',
+    'python', '<(DEPTH)/chromium/build/android/gyp/create_standalone_apk.py',
     '--libraries-top-dir=<(libraries_top_dir)',
     '--input-apk-path=<(input_apk_path)',
     '--output-apk-path=<(output_apk_path)',
